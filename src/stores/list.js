@@ -1,31 +1,41 @@
-import { ref, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const ListStore = defineStore('list', () => {
 
-    const list = ref([
-        {
-            name: "firts saiful",
-            no: "234"
+    const ListState = reactive({
+        list: [
+            {
+                name: 'kamil',
+                hobby: 'game',
+                description: 'mobile legends'
+            },
+            {
+                name: 'saiful',
+                hobby: 'baca',
+                description: 'baca buku'
+            }
 
-        },
-        {
-            name: "firts kamil",
-            no: "234234"
+        ]
+    })
 
-        }
+    const getList = computed(() => ListState.list)
 
-    ])
+    const getItem = (index) => computed(() => ListState.list[index])
 
-    // getter
-    const getList = computed(() => list)
 
-    // action
-    function addList(params) {
+    function addToList(params) {
         if (params) {
-            list.value.push({ name: params })
+            ListState.list.push({ ...params })
         }
     }
 
-    return { list, getList, addList }
+    const removeItem = (index) => {
+        ListState.list.splice(index, 1)
+    }
+    const editItem = (index, data) => {
+        ListState.list[index] = data
+    }
+
+    return { ListState, getList, addToList, removeItem, editItem, getItem }
 })
