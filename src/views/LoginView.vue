@@ -5,24 +5,18 @@ import { RouterLink, useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
 const router = useRouter();
 
-const email = ref('');
+const name = ref('');
 const token = ref('');
 const password = ref('');
 const errorMessage = ref('');
 
 const login = async () => {
   try {
-    const response = await axios.post('https://reqres.in/api/login', {
-      // email: name.value,
-      // username: username.value,
-      // password: password.value,
+    const response = await axios.post('https://be.tautan.tk/auth/login', {
 
-      email: email.value,
+      username: name.value,
       password: password.value,
     },
-      {
-        headers: { 'Content-Type': 'application/json' }
-      }
     );
     console.log(response.data)
     if (response.status === 200) {
@@ -31,7 +25,7 @@ const login = async () => {
       Cookies.set('token', token.value);
       router.push('/list');
     } else if (response.status === 400) {
-      console.log("salah email ataun password")
+      console.log("salah email ataun password",)
     }
   } catch (error) {
     errorMessage.value = 'Login failed. Please check your credentials.';
@@ -46,7 +40,7 @@ const login = async () => {
 
     <form class="form" @submit.prevent="login">
       <h3>Username</h3>
-      <input class="input" v-model="email" type="text" placeholder="Username" required />
+      <input class="input" v-model="name" type="text" placeholder="Username" required />
       <h3>Password</h3>
       <input class="input" v-model="password" type="password" placeholder="Password" required />
 

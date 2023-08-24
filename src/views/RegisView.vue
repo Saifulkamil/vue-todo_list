@@ -5,19 +5,17 @@ import { RouterLink, useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
 const router = useRouter();
 
-const email = ref('');
+const name = ref('');
+const username = ref('');
 const token = ref('');
 const password = ref('');
 const errorMessage = ref('');
 
 const regis = async () => {
   try {
-    const response = await axios.post('https://reqres.in/api/register', {
-      // email: name.value,
-      // username: username.value,
-      // password: password.value,
-
-      email: email.value,
+    const response = await axios.post('https://be.tautan.tk/auth/register', {
+      name: name.value,
+      username: username.value,
       password: password.value,
     },
       {
@@ -25,7 +23,7 @@ const regis = async () => {
       }
     );
     console.log(response.data)
-    if (response.status === 201) {
+    if (response.status === 200 || response.status === 201) {
       token.value = response.data.token;
       Cookies.set('token', token.value);
       router.push('/login');
@@ -48,9 +46,9 @@ const regis = async () => {
     <h3>Nama</h3>
     <form class="form" @submit.prevent="regis">
 
-      <input class="input" v-model="email" type="text" placeholder="Nama" required />
+      <input class="input" v-model="name" type="text" placeholder="Nama" required />
       <h3>Username</h3>
-      <input class="input" v-model="password" type="text" placeholder="Username" required />
+      <input class="input" v-model="username" type="text" placeholder="Username" required />
       <h3>password</h3>
       <input class="input" v-model="password" type="password" placeholder="password" />
 

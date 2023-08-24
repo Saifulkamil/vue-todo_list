@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import { ListStore } from '@/stores/list';
-// import Cookies from 'js-cookie';
-// const storedTasks = Cookies.get('token');
 const store = ListStore();
 const datainput = {
   name: '',
@@ -77,8 +75,6 @@ function toggleComplete(index) {
           <button class="hapus" @click="() => store.removeItem(index)">hapus</button>
           <button class="Edit" @click="() => detailList(index)">Edit</button>
           {{ item.name }} ({{ item.hobby }}) {{ !!item?.description ? item.description : 'description?' }}
-
-
         </li>
       </template>
     </ol>
